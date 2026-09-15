@@ -5,6 +5,38 @@ app_description = "Configure Theme for deskview"
 app_email = "bhushan.barbuddhe@dhwaniris.com"
 app_license = "mit"
 
+
+
+doctype_js = {
+    "Sales Order": "public/js/sales_order.js"
+}
+doc_events = {
+
+    "Sales Order": {
+
+        "validate":
+            "frappe_desk_theme.services.sales_order.validate",
+        "before_submit": 
+            "frappe_desk_theme.services.sales_order.before_submit",
+        "on_submit":
+            "frappe_desk_theme.services.sales_order.on_submit",
+
+    },
+
+}
+app_include_js = "/assets/frappe_desk_theme/js/workspace.js"
+
+
+scheduler_events = {
+
+    "daily": [
+
+        "frappe_desk_theme.services.scheduler.daily_scheduler"
+
+    ]
+
+}
+
 # Apps
 # ------------------
 

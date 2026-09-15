@@ -1,6 +1,10 @@
 import frappe
 from frappe import _
 
+from frappe_desk_theme.services.billing import generate_schedule
+from frappe_desk_theme.services.invoice import create_due_invoice
+
+
 @frappe.whitelist(allow_guest=True)
 def get_custom_theme():
     theme = frappe.get_doc("Desk Theme")
@@ -29,3 +33,17 @@ def get_footer_html():
     except Exception as e:
         frappe.log_error(f"Error rendering footer template: {str(e)}")
         return ""
+
+
+# ---------------------------------------------------------
+# Generate Billing Schedule
+# ---------------------------------------------------------
+
+@frappe.whitelist()
+def generate_billing_schedule(sales_order):
+
+    doc = frappe.get_doc("Sales Order", sales_order)
+
+    generate_schedule(doc)
+
+    return "Billing Schedule Generated"
